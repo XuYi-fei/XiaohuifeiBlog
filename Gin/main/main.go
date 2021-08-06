@@ -1,14 +1,23 @@
 package main
 
 import (
-	"Gin/controller/users"
-	"fmt"
-	"github.com/gin-gonic/gin"
+	"Gin/dao"
+	"Gin/routers"
 )
 
 func main(){
-	fmt.Println(1)
-	users.Test()
-	r := gin.Default()
-	r.Run()
+	err := dao.InitMySQL()
+	if err != nil{
+		panic(err)
+	}
+	//defer dao.DB.Close()
+	err = dao.InitMySQL()
+	if err != nil {
+		return
+	}
+	//r := dao.DB
+	r := routers.SetupRouter()
+
+
+	r.Run(":18081")
 }
