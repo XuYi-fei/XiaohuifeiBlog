@@ -3,21 +3,19 @@ package main
 import (
 	"Gin/dao"
 	"Gin/routers"
+	"fmt"
+	"runtime"
 )
 
-func main(){
+func main() {
+	fmt.Println(runtime.Version())
 	err := dao.InitMySQL()
-	if err != nil{
+	if err != nil {
 		panic(err)
 	}
 	//defer dao.DB.Close()
-	err = dao.InitMySQL()
-	if err != nil {
-		return
-	}
 	//r := dao.DB
 	r := routers.SetupRouter()
-
 
 	r.Run(":18081")
 }
